@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>RayCast</title>
+    <style>
+body {
+    font-family: "Andale Mono", monospace;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5vh;
+    background-color: #e0e0e0;
+}
+
+#canvas {
+    display: block;
+    background-color: #000;
+}
+
+#canvas2 {
+    display: block;
+    background-color: #000;
+}
+
+code {
+    background-color: #686868;
+    padding: 2pt;
+    color: #f8f8f2;
+    border-radius: 2px;
+}
+
+li {
+  margin: 4pt;
+}
+
+</style>
+  </head>
+  <body>
+    <h1>Ocen WASM Demo</h1>
+    <a href="https://github.com/ocen-lang/og-wasm-template">View Source On GitHub</a>
+    <br>
+    <p> This demo was written in the <a href="https://github.com/ocen-lang/ocen">Ocen</a>, and compiled to the web using Emscripten. </p>
+
+    <p> Use <code>Up</code> and <code>Down</code> keys to zoom in/out </p>
+    <canvas id="canvas" oncontextmenu="event.preventDefault()" tabindex=-1></canvas>
+
+    <a href="https://ocen-lang.github.io/og-wasm-template/multi-canvas.html">Check out the multi-canvas template</a>
+
+    <script type='text/javascript'>
+      var canvas = document.getElementById('canvas');
+      var Module = {
+        canvas,
+        preRun: [function() {
+          // This is needed if you want the keyboard events to only be captured by the
+          // canvas when it is focused. By default, every canvas on the page will react
+          // to all keyboard events. Without this, any text-boxes / etc on the page will
+          // also not work properly, as the keyboard events will be captured by the canvas.
+          ENV.SDL_EMSCRIPTEN_KEYBOARD_ELEMENT = "#canvas";
+        }]
+      };
+      </script>
+    <script async type="text/javascript" src="index.js"></script>
+  </body>
+</html>
+<!doctype html>
+<html lang="en-us">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>RayCast</title>
+    <style>
+body {
+    font-family: "Andale Mono", monospace;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 5vh;
+    background-color: #e0e0e0;
+}
+
+#canvas {
+    display: block;
+    background-color: #000;
+}
+
+#canvas2 {
+    display: block;
+    background-color: #000;
+}
+
+code {
+    background-color: #686868;
+    padding: 2pt;
+    color: #f8f8f2;
+    border-radius: 2px;
+}
+
+li {
+  margin: 4pt;
+}
+
+</style>
+  </head>
+  <body>
+    <h1>Ocen WASM Demo - Multi Canvas</h1>
+    <a href="https://github.com/ocen-lang/og-wasm-template">View Source On GitHub</a>
+    <br>
+    <p> This demo was written in the <a href="https://github.com/ocen-lang/ocen">Ocen</a>, and compiled to the web using Emscripten. </p>
+    <p> Use <code>Up</code> and <code>Down</code> keys to zoom in/out </p>
+
+    <canvas id="canvas1" oncontextmenu="event.preventDefault()" tabindex=-1></canvas>
+    <input type="text" style="margin:5pt;" id="input" placeholder="Textbox to try">
+    <canvas id="canvas2" oncontextmenu="event.preventDefault()" tabindex=-1></canvas>
+
+    <a href="https://ocen-lang.github.io/og-wasm-template">Check out the single-canvas template</a>
+
+
+    <!-- NOTE: We need to load these first, >>without<< the async tag   -->
+    <script type="text/javascript" src="mod1.js"></script>
+    <script type="text/javascript" src="mod2.js"></script>
+
+    <script type='text/javascript'>
+      // Get the canvases
+      var canvas1 = document.getElementById('canvas1');
+      var canvas2 = document.getElementById('canvas2');
+
+      // Helper function to load a module with a canvas. Split this up into separate
+      // calls if you wish to customize the preRun or other settings.
+      function makeModule(ModuleName, canvas) {
+        ModuleName({
+          canvas,
+          // This is needed if you want the keyboard events to only be captured by the
+          // canvas when it is focused. By default, every canvas on the page will react
+          // to all keyboard events. Without this, any text-boxes / etc on the page will
+          // also not work properly, as the keyboard events will be captured by the canvas.
+          preRun: [function(mod) {
+            mod.ENV.SDL_EMSCRIPTEN_KEYBOARD_ELEMENT = "#canvas";
+          }]
+        })
+      }
+      // // Load the modules
+      makeModule(Module1, canvas1);
+      makeModule(Module2, canvas2);
+
+      </script>
+  </body>
+</html>
