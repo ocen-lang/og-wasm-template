@@ -45,7 +45,7 @@ li {
     <h1>Ocen WASM Demo</h1>
     <a href="https://github.com/ocen-lang/og-wasm-template">View Source On GitHub</a>
     <br>
-    <p> This demo was written in the <a href="https://github.com/ocen-lang/ocen">Ocen</a>, and compiled to the web using Emscripten. </p>
+    <p> This demo was written in <a href="https://github.com/ocen-lang/ocen">Ocen</a>, and compiled to the web using Emscripten. </p>
 
     <p> Use <code>Up</code> and <code>Down</code> keys to zoom in/out </p>
     <canvas id="canvas" oncontextmenu="event.preventDefault()" tabindex=-1></canvas>
@@ -116,7 +116,7 @@ li {
     <h1>Ocen WASM Demo - Multi Canvas</h1>
     <a href="https://github.com/ocen-lang/og-wasm-template">View Source On GitHub</a>
     <br>
-    <p> This demo was written in the <a href="https://github.com/ocen-lang/ocen">Ocen</a>, and compiled to the web using Emscripten. </p>
+    <p> This demo was written in <a href="https://github.com/ocen-lang/ocen">Ocen</a>, and compiled to the web using Emscripten. </p>
     <p> Use <code>Up</code> and <code>Down</code> keys to zoom in/out </p>
 
     <canvas id="canvas1" oncontextmenu="event.preventDefault()" tabindex=-1></canvas>
