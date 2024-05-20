@@ -1,0 +1,47 @@
+import std::og
+
+def main() {
+    let rows = 20i32
+    let cols = 20i32
+    let cell_size = 20i32
+
+    og::init((cols * cell_size) as u32, (rows * cell_size) as u32, "Demo")
+
+    let off = 0i32
+    let frames = 0
+    while og::is_running() {
+        if og::is_key_pressed(Escape) {
+            break
+        }
+
+        if og::is_key_pressed(Up) {
+            cell_size += 1
+        }
+        if og::is_key_pressed(Down) {
+            cell_size -= 1
+        }
+
+        for let i = -1; i < rows + 1; i++ {
+            for let j = -1; j < cols + 1; j++ {
+                og::draw_rect(
+                    (j * cell_size + off) as i32,
+                    (i * cell_size + off) as i32,
+                    (cell_size) as i32,
+                    (cell_size) as i32,
+                    if (i + j) % 2 == 0 then og::colors::BLACK else og::colors::WHITE
+                )
+            }
+        }
+
+        frames++
+        if frames % 20 == 0 {
+            if (off == cell_size) {
+                off = 0
+            }
+            off++
+        }
+    }
+    og::quit()
+}
+
+
