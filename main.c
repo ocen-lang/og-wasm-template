@@ -353,6 +353,7 @@ struct std_og_state_MouseState {
   std_vec_Vec2__3 pos;
   bool buttons[16];
   bool wheel_dirs[8];
+  std_vec_Vec2__3 scroll;
 };
 
 
@@ -816,6 +817,7 @@ std_vec_Vec2__3 std_og_get_window_size(void);
 bool std_og_is_scroll(std_og_state_MouseWheel w);
 std_vec_Vec2__3 std_og_get_mouse_pos(void);
 std_vec_Vec2__3 std_og_get_mouse_delta(void);
+std_vec_Vec2__3 std_og_get_mouse_scroll(void);
 void std_og_capture_mouse(bool capture);
 void std_og_grab_input(bool grab);
 void std_og_show_cursor(bool show);
@@ -2940,6 +2942,10 @@ std_vec_Vec2__3 std_og_get_mouse_delta(void) {
   return std_og_state_mouse.vec;
 }
 
+std_vec_Vec2__3 std_og_get_mouse_scroll(void) {
+  return std_og_state_mouse.scroll;
+}
+
 void std_og_capture_mouse(bool capture) {
   SDL_CaptureMouse(capture);
 }
@@ -3058,6 +3064,7 @@ f32 std_og_state_get_avg_frametime(void) {
 void std_og_utils_handle_sdl_events(void) {
   std_og_state_prev_mouse=std_og_state_mouse;
   std_og_state_prev_keys=std_og_state_keys;
+  std_og_state_mouse.scroll=(std_vec_Vec2__3){.x=0, .y=0};
   SDL_Event event = {0};
   while (SDL_PollEvent(&event)) {
     switch (event.type) {
@@ -3089,6 +3096,7 @@ void std_og_utils_handle_sdl_events(void) {
         std_og_state_mouse.wheel_dirs[((i32)std_og_state_MouseWheel_Left)]=(event.wheel.x < 0);
         std_og_state_mouse.wheel_dirs[((i32)std_og_state_MouseWheel_Down)]=(event.wheel.y > 0);
         std_og_state_mouse.wheel_dirs[((i32)std_og_state_MouseWheel_Up)]=(event.wheel.y < 0);
+        std_og_state_mouse.scroll=(std_vec_Vec2__3){.x=event.wheel.x, .y=event.wheel.y};
       } break;
       default: {
       } break;
