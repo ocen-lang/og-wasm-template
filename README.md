@@ -41,7 +41,7 @@ $ python3 -m http.server build/
 
 ### Emscripten build, Docker
 
-Must have docker installed on your system, and running already.
+Must have docker installed on your system, and running.
 
 ```shell
 $ ./meta/build_wasm_docker.sh
